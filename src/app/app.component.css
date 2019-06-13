@@ -1,0 +1,42 @@
+.nav-cus{
+    background-color: grey;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: white;
+    font-weight: bold;
+}
+.nav-cus .header-user{
+    font-size: 25px
+}
+
+.nav-cus .add-btn{
+    text-align: right;
+    background-color: green;
+    padding: 5px;
+    cursor: pointer
+}
+
+.nav-cus .add-btn span{
+    padding: 3px;
+}
+
+.modal-footer .save{
+    background-color: green;
+    color: white;
+}
+
+.help-block{
+    color: red;
+    font-size: 9px;
+}
+
+/* For Firefox */
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

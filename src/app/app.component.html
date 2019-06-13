@@ -1,21 +1,128 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="nav-cus">
+  <div class="container">
+    <div class="row">
+        <div class="col-9 col-sm-9">
+          <span class="header-user">Users</span>
+        </div>
+        <div class="col-3 col-sm-3" style="margin: auto;text-align: right;">
+           <span class="add-btn" (click)="addUser();">
+             <span >ADD</span><i class="fa fa-plus" aria-hidden="true"></i>
+           </span>
+        </div>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<div class="container">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Ph NO</th>
+            <th>Date of Birth</th>
+            <th>Qualification</th>
+            <th>address</th>
+            <th>url</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item3 of user_data;let i=index">
+            <td>{{item3.name}}</td>
+            <td>{{item3.email}}</td>
+            <td>{{item3.ph_no}}</td>
+            <td>{{item3.dob}}</td>
+            <td>{{item3.qul}}</td>
+            <td>{{item3.address}}</td>
+            <td>{{item3.url}}</td>
+          </tr>      
+        </tbody>
+      </table>
+  </div>
+ </div>
+
+ <!-- *************************-The Modal******************************** -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ADD USER</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="userform" (ngSubmit)="userData(userform.value)">
+        <div class="modal-body" style="max-height:400px;overflow-y: auto;">
+            <div class="form-group">
+                <label for="recipient-name">Full Name:</label>
+                <input type="text"  class="form-control" id="recipient-name" name="namecustom" maxlength="25" formControlName="namecustom" placeholder="Full name" pattern="[A-Za-z0-9.\s]+">
+                <span *ngIf="!userform.get('namecustom').valid && userform.get('namecustom').touched" 
+                          class="help-block">Enter a name (Minimum 2 Characters)</span>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">D.O.B:</label>
+                <div class="input-group" dir="ltr">
+                    <input class="form-control" 
+                    placeholder="yyyy/mm/dd" 
+                    name="date" 
+                    id="enquiry_date"
+                    formControlName="date"
+                    ngbDatepicker 
+                    [readonly]="true"
+                    [value]=""
+                    [maxDate]="minDate"
+                    #d="ngbDatepicker" >
+                    <button class="input-group-addon" (click)="d.toggle()" type="button">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </div>
+                <span class="help-block" *ngIf="!userform.get('date').valid && userform.get('date').touched" >select D.O.B</span>
+            </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Email address:</label>
+                  <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" id="exampleInputEmail1" name="emailcustom" aria-describedby="emailHelp" placeholder="Email" formControlName="emailcustom" required>
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <span *ngIf="!userform.get('emailcustom').valid && userform.get('emailcustom').touched" 
+                          class="help-block">Enter a email id.</span>
+              </div>
+              <div class="form-group ">
+                  <label for="exampleInputph">Phone No:</label>
+                  <input class="form-control" type="number" name="Phone_custom" [(ngModel)]="Phone_custom" placeholder="Phone" formControlName="Phone_custom" [required]="country_code_custom ? true : false">
+                  <span *ngIf="!userform.get('Phone_custom').valid && userform.get('Phone_custom').touched" 
+              class="help-block">Enter a phone number.</span>
+              </div>
+              <div class="form-group ">
+                  <label for="recipient-qua">Qualification:</label>
+                  <div class="input-group">
+                    <select class="custom-select" id="inputGroupSelect02" name="option_custom"  class="form-control" formControlName="option_custom" required>
+                        <option value="" selected disabled hidden>Choose...</option>
+                        <option value="B tech">B tech</option>
+                        <option value="M tech">M tech</option>
+                        <option value="BCA">BCA</option>
+                    </select>
+                  </div>
+                  <span *ngIf="!userform.get('option_custom').valid && userform.get('option_custom').touched" class="help-block">Select your options.</span>
+                  </div>  
+                  <div class="form-group">
+                      <label for="address">Address:</label>
+                      <textarea type="text" class="form-control" max="5" placeholder="Address" formControlName="address"></textarea>
+                      <span *ngIf="!userform.get('address').valid && userform.get('address').touched" class="help-block">Enter a address.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-url">URL:</label>
+                        <input type="text"  class="form-control" id="recipient-name" name="namecustom" maxlength="200" formControlName="url" placeholder="url" pattern="[A-Za-z0-9.\s]+">
+                        <span *ngIf="!userform.get('url').valid && userform.get('url').touched" 
+                                  class="help-block">Enter a url.</span>
+                      </div>
+      </div>
+            
+        <div class="modal-footer">
+          <button type="submit" class="btn blue-btn save">SAVE</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
 
 <router-outlet></router-outlet>
